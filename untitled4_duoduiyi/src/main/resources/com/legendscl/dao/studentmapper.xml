@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.legendscl.dao.studentmapper">
+
+<!--推荐，更简单-->
+
+    <select id="getstudent2" resultMap="studentteacher2"><!--        4-->
+        SELECT s.`id` sid,s.`name` sname,t.`name` tname
+        FROM student s,teacher t WHERE s.`t_id`=t.`id`
+    </select>
+    <resultMap id="studentteacher2" type="com.legendscl.pojo.Student">
+        <result property="id" column="sid" />
+        <result property="name" column="sname" />
+        <association property="teacher" javaType="com.legendscl.pojo.Teacher">
+<!--            association对象类型   javatype获取对象的类型-->
+            <result property="name" column="tname" />
+        </association>
+    </resultMap>
+    
+    
+<!-- /////////////////////   子查询-->
+<!--    3-->
+    <resultMap id="studentteacher" type="com.legendscl.pojo.Student">
+        <result property="id" column="id" />
+        <result property="name" column="name" />
+        <association property="teacher" column="t_id" javaType="com.legendscl.pojo.Teacher"
+                     select="getteacher" />
+    </resultMap>
+
+<!--    1-->
+    <select id="getstudent" resultMap="studentteacher"><!--        4-->
+        select * from student
+    </select>
+
+
+<!--2-->
+    <select id="getteacher" resultType="com.legendscl.pojo.Teacher">
+        select * from teacher where id =#{tid}
+    </select>
+
+
+
+
+</mapper>

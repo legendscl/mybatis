@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.legendscl.dao.teachermapper">
+
+<!--    1.2-->
+    <select id="getteacher" resultType="com.legendscl.pojo.Teacher">
+        SELECT * FROM teacher
+    </select>
+
+
+
+
+<!--2.2-->
+    <select id="getteacher2" resultMap="teacherstudent2">
+        SELECT s.`id` sid,s.`name` sname,t.`name` tname,t.`id` tid
+        FROM student s,teacher t WHERE s.`t_id`=t.`id` AND t.`id`=#{tid}
+    </select>
+
+<!--    2.3-->
+    <resultMap id="teacherstudent2" type="com.legendscl.pojo.Teacher">
+        <result property="id" column="tid" />
+        <result property="name" column="tname" />
+
+<!--        collection集合类型     用oftype获取泛型信息-->
+        <collection property="students" ofType="com.legendscl.pojo.Student">
+            <result property="id" column="sid"/>
+            <result property="name" column="sname"/>
+            <result property="tid" column="tid"/>
+        </collection>
+    </resultMap>
+
+
+
+<!--    ==========================================-->
+    <select id="getteacher3" resultMap="teacherstudent3">
+        select * from teacher where id=#{tid}
+    </select>
+    <resultMap id="teacherstudent3" type="com.legendscl.pojo.Teacher">
+        <collection property="students" javaType="ArrayList" ofType="com.legendscl.pojo.Student"
+        select="getstudentbyid" column="id"/>
+        
+    </resultMap>
+
+    <select id="getstudentbyid" resultType="com.legendscl.pojo.Student" >
+        select * from student where t_id=#{id}
+    </select>
+
+
+</mapper>

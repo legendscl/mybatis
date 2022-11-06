@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--5-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="legend.dao.userdao">
+
+<!--    5.1绑定接口-->
+
+
+
+
+
+
+    <select id="getUserlist" resultType="legend.pojo.User">
+<!--        5.2 id(userdaoimp方法的名字)和
+             类型（对象的话可以填Object，多个参数用map或者注解）
+-->
+
+        select * from user
+    </select>
+
+
+int代表integer
+    <select id="getUserbyID" parameterType="int" resultType="legend.pojo.User">
+        select * from user where id =#{id}
+    </select>
+
+
+
+    <insert id="addUser" parameterType="legend.pojo.User" >
+        insert into user(username,password,email)
+        values(#{username},#{password},#{email})
+    </insert>
+
+<!--    如果只修改密码，User的话会连带把其他的也写上  map方式只要写要修改的就可以了-->
+    <insert id="addUser2" parameterType="map" >
+        insert into user(username,password,email)
+        values(#{username01},#{password01},#{email01})
+    </insert>
+
+
+    <update id="updateUser" parameterType="legend.pojo.User">
+        update user set username=#{username},password=#{password},email=#{email}
+        where id =#{id}
+    </update>
+    
+    <delete id="deleteUserdao" parameterType="int">
+        delete from user where id=#{id}
+    </delete>
+
+    <select id="GetUserLike" resultType="legend.pojo.User">
+        select * from user where username like #{value}
+<!--        或者
+            select * from user where username like "%"#{value}"%"
+            List<User> i = usd.GetUserLike("w");
+            -->
+    </select>
+</mapper>

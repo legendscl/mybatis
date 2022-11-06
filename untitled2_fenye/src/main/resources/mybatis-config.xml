@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--1 核心配置文件-->
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+<!--            事务管理器-->
+            <dataSource type="POOLED">
+<!--                有连接池-->
+                <!--    1.1-->
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/scl?
+                useSSL=true&amp;
+                useUnicode=true&amp;
+                characterEncoding=UTF-8&amp;
+                rewriteBatchedStatements=true&amp;
+                serverTimezone=UTC"/>
+                <property name="username" value="root"/>
+                <property name="password" value="scl123456scl."/>
+                <!--    1.2  DAtabase  +  datasourse  + mysql -->
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="legend/dao/usermapper.xml"/>
+<!--        7.每一个mapper.xml都要在这注册-->
+    </mappers>
+</configuration>

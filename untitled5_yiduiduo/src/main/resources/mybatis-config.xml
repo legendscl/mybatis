@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--1 核心配置文件-->
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/scl?
+                useSSL=true&amp;
+                useUnicode=true&amp;
+                characterEncoding=UTF-8&amp;
+                rewriteBatchedStatements=true&amp;
+                serverTimezone=UTC"/>
+                <property name="username" value="root"/>
+                <property name="password" value="scl123456scl."/>
+
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="com/legendscl/dao/studentmapper.xml"/>
+        <mapper resource="com/legendscl/dao/teachermapper.xml"/>
+
+
+
+
+    </mappers>
+</configuration>
